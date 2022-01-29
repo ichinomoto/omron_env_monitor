@@ -67,8 +67,8 @@ def get_latest_data(pl):
         print( "batt  : %s" % (batt / 1000))
         print( "-----------")
 
-    (latest_page_time, latest_page, latest_row) = get_latest_page(pl)
-    data_time = utc_to_jst(latest_page_time + 300 * latest_row - 1)
+    (latest_page_time, interval, latest_page, latest_row) = get_latest_page(pl)
+    data_time = utc_to_jst(latest_page_time + interval * latest_row - 1)
 
     print("            time,   temp,    hum,  light,     uv,  press,  noise, discom,   heat,   batt")
     data = "{0:>6}, {1:>6}, {2:>6}, {3:>6}, {4:>6}, {5:>6}, {6:>6}, {7:>6}, {8:>6}, {9:>6}"\
@@ -85,7 +85,7 @@ def get_latest_page(pl):
         print( "latest_page     : %s" % latest_page)
         print( "latest_row      : %s" % latest_row)
         print( "-----------")
-    return latest_page_time, latest_page, latest_row
+    return latest_page_time, interval, latest_page, latest_row
 
 def set_request_page(pl, page, row):
     if verbose:
@@ -168,27 +168,27 @@ def connect(address):
 def disconnect(pl):
     pl.disconnect()
 
-def read_row(pl, page_time, row):
+def read_row(pl, page_time, row, interval):
     for count in range(row + 1):
-        data_time = utc_to_jst(page_time + 300 * count)
+        data_time = utc_to_jst(page_time + interval * count)
         (row, temp, hum, light, uv, press, noise, discom, heat, batt) = get_response_data(pl)
         write_file(data_time, temp, hum, light, uv, press, noise, discom, heat, batt)
 
-def read_data(pl, latest_page, latest_row):
+def read_data(pl, latest_page, latest_row, interval):
     #2page以上ある場合
     if (latest_page >= 1):
         for page_num in range(latest_page):
             print("page_num: ", page_num)
             set_request_page(pl, page_num, MAX_ROW)
             page_time = get_response_flag(pl)
-            read_row(pl, page_time, MAX_ROW)
+            read_row(pl, page_time, MAX_ROW, interval)
 
     #最終ページのみ
     print("last_page_num: ", latest_page)
     set_request_page(pl, latest_page, latest_row)
     page_time = get_response_flag(pl)
 
-    read_row(pl, page_time, latest_row)
+    read_row(pl, page_time, latest_row, interval)
 
 def get_all(pl):
     #状態確認
@@ -198,7 +198,7 @@ def get_all(pl):
     #get_latest_data(pl)
 
     #最終ページ情報
-    (latest_page_time, latest_page, latest_row) = get_latest_page(pl)
+    (latest_page_time, interval, latest_page, latest_row) = get_latest_page(pl)
 
     #指定ページ情報取得
     set_request_page(pl, latest_page, latest_row)
@@ -208,11 +208,11 @@ def get_all(pl):
     get_response_flag(pl)
 
     #最新ページの情報取得
-    read_data(pl, latest_page, latest_row)
+    read_data(pl, latest_page, latest_row, interval)
 
 def get_page(pl, page):
     #最終ページ情報
-    (latest_page_time, latest_page, latest_row) = get_latest_page(pl)
+    (latest_page_time, interval, latest_page, latest_row) = get_latest_page(pl)
 
     if page > latest_page:
         print("page is not exist:", page)
@@ -230,7 +230,7 @@ def get_page(pl, page):
 
     set_request_page(pl, page, get_row)
     page_time = get_response_flag(pl)
-    read_row(pl, page_time, get_row)
+    read_row(pl, page_time, get_row, interval)
         
 def set_time(pl):
     command = ['date', '+%s']
