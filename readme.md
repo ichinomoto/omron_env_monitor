@@ -1,17 +1,19 @@
-#env_monitor.py
-[2JCIE-BL01](https://components.omron.com/jp-ja/products/sensors/2JCIE-BL)‚â[WxBeacon2](https://weathernews.jp/smart/wxbeacon2/)‚É•Û‘¶‚³‚ê‚Ä‚¢‚éƒf[ƒ^‚ğ“Ç‚İo‚·‚½‚ß‚ÌƒRƒ}ƒ“ƒh
+# env_monitor.py
+[2JCIE-BL01](https://components.omron.com/jp-ja/products/sensors/2JCIE-BL)ã‚„[WxBeacon2](https://weathernews.jp/smart/wxbeacon2/)ã«ä¿å­˜ã•ã‚Œã¦ã„ã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿å‡ºã™ãŸã‚ã®ã‚³ãƒãƒ³ãƒ‰
 
 
-#Requirement
-*bluepy
+# Requirement
+* bluepy
 
-#g‚¢•û
-‚ ‚ç‚©‚¶‚ßƒZƒ“ƒT[‚ÌMACƒAƒhƒŒƒX‚ğ’²‚×‚Ä‚¨‚«AˆÈ‰º‚ÌƒRƒ}ƒ“ƒh‚ÅÅŒã‚É•Û‘¶‚³‚ê‚½ƒf[ƒ^‚ªæ“¾‚Å‚«‚éB
+# ä½¿ã„æ–¹
+ã‚ã‚‰ã‹ã˜ã‚ã‚»ãƒ³ã‚µãƒ¼ã®MACã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’èª¿ã¹ã¦ãŠãã€ä»¥ä¸‹ã®ã‚³ãƒãƒ³ãƒ‰ã§æœ€å¾Œã«ä¿å­˜ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ãŒå–å¾—ã§ãã‚‹ã€‚
 ```
-python3 env_monitor.py xx:xx:xx:xx:xx:xx
+$python3 env_monitor.py xx:xx:xx:xx:xx:xx
 ```
 
+ã‚³ãƒãƒ³ãƒ‰ã®è©³ç´°ã¯
 ```
+$python3 env_monitor.py -h
 usage: env_monitor.py [-h] [-a] [-o OUTPUT] [-p PAGE] [-v] [--set_time] address
 
 Omron Env Sensor control
