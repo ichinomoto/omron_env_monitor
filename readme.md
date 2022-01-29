@@ -11,6 +11,11 @@
 $python3 env_monitor.py xx:xx:xx:xx:xx:xx
 ```
 
+保存されているすべてのデータを読み出してcsvファイルに保存する例
+```
+$python3 env_monitor.py -a -o output_data.csv xx:xx:xx:xx:xx:xx
+```
+
 コマンドの詳細は
 ```
 $python3 env_monitor.py -h
