@@ -1,3 +1,4 @@
+```
 usage: env_monitor.py [-h] [-a] [-o OUTPUT] [-p PAGE] [-v] [--set_time] address
 
 Omron Env Sensor control
@@ -9,8 +10,8 @@ optional arguments:
   -h, --help            show this help message and exit
   -a, --all             get all data
   -o OUTPUT, --output OUTPUT
-                        output filename (cvs format)
+                        output filename (csv format)
   -p PAGE, --page PAGE  get select page data
   -v, --verbose         show more logs
   --set_time            set sensor time from pc time
-
+```
