@@ -264,7 +264,7 @@ if __name__ == "__main__":
     parser.add_argument('-o', '--output', type=str, help='output filename (cvs format)')
     parser.add_argument('-p', '--page', type=int, help='get select page data')
     parser.add_argument('-v', '--verbose', help='show more logs', action="store_true")
-    parser.add_argument('--set_time', help='set sensor time from pc time', action="store_true")
+    parser.add_argument('--set-time', help='set sensor time from pc time', action="store_true")
     args = parser.parse_args()
 
     #verbose mode
