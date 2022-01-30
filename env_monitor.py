@@ -6,6 +6,7 @@ import csv
 import datetime
 import os
 import struct
+import subprocess
 import sys
 import time
 
@@ -234,17 +235,13 @@ def get_page(pl, page):
         
 def set_time(pl):
     command = ['date', '+%s']
-    time = subprocess.check_call(command)
-    print("time set to: ", time)
-#    for i in time:
-#        print(f"time {i:02X} ", end="")
-
-#    set_value = struct.pack('<I', time)
-#    pl.writeCharacteristic(HND_TIME_INFO, time)
+    time = subprocess.check_output(command)
+    print("time set to: ", int(time))
+    set_value = struct.pack('<I', int(time))
+    pl.writeCharacteristic(HND_TIME_INFO, set_value)
     get_time = pl.readCharacteristic(HND_TIME_INFO)
-    print("len:",len(get_time))
-    for i in get_time:
-        print(f"get {i:02X} ", end="")
+    (get_value) = struct.unpack('<I', get_time)
+    print("check time:", get_value)
 
 def get_error_status(pl):
     get_error_status= pl.readCharacteristic(HND_ERROR_STATUS)
